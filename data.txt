@@ -1,0 +1,2 @@
+{"email":"lach","password":"pass","firstName":"lach","lastName":"murphy"}
+{"email":"jack","password":"pass2","firstName":"jack","lastName":"dimig"}

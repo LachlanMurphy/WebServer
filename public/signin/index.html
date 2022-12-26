@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://cdn.socket.io/4.5.3/socket.io.min.js" integrity="sha384-WPFUvHkB1aHA5TDSZi6xtDgkF0wXJcIIxXhC6h8OT8EH3fC5PWro5pWJ1THjcfEi" crossorigin="anonymous"></script>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+
+	<h1 id="title">Welcome to lachlangmurphy.com! Please Sign In.</h1>
+	<p>Email: <input type="text" id="email" placeholder="joesmith@domain.com"></p>
+	<p>Password: <input type="text" id="password" placeholder="1234password!"></p>
+	<input type="submit" onclick="submit();">
+	<h1>Don't have an account? <a href="../signup">Signup!</a></h1>
+
+</body>
+
+<style type="text/css">
+	body {
+		text-align: center;
+    	background: lightblue;
+	}
+	#title {
+		text-align: center;
+	}
+</style>
+
+<script type="text/javascript">
+	let socket = io.connect('localhost:3000');
+
+
+	function submit() {
+		let data = {
+			email: document.getElementById('email').value,
+			password: document.getElementById('password').value
+		}
+
+		socket.emit('signin',data);
+	}
+
+	socket.on('signinSuccessful', () => {
+		sessionStorage.setItem('currentUser', document.getElementById('email').value);
+		if (sessionStorage.getItem('lastPlace') !== null)
+			window.location.replace(sessionStorage.getItem('lastPlace'));
+		else
+			window.location.replace('lachlangmurphy.com');
+	});
+
+	socket.on('passwordFail', () => {
+		document.getElementById('title').innerHTML = "Password Incorrect";
+	});
+
+	socket.on('emailFail', () => {
+		document.getElementById('title').innerHTML = "Email not found";
+	});
+</script>
+
+</html>

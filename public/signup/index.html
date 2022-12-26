@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://cdn.socket.io/4.5.3/socket.io.min.js" integrity="sha384-WPFUvHkB1aHA5TDSZi6xtDgkF0wXJcIIxXhC6h8OT8EH3fC5PWro5pWJ1THjcfEi" crossorigin="anonymous"></script>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Sign Up</title>
+</head>
+<body>
+	<h1 class="title" id="title">Sign Up!</h1>
+	<div class="form">
+		<p>
+			First Name: <input type="text" placeholder="Joe" id="firstName">
+		</p>
+		<p>
+			Last Name: <input type="text" placeholder="Smith" id="lastName">
+		</p>
+		<p>
+			Email: <input type="text" placeholder="joesmith@email.com" id="email">
+		</p>
+		<p>
+			Password: <input type="text" placeholder="password" id="password">
+		</p>
+		<p>
+			Confirm Password: <input type="text" placeholder="password" id="confirmPassword">
+		</p>
+		<input type="submit" value="Submit" id="submit" onclick="submit();">
+		<h1>Already have an account? <a href="../signin">Sign In!</a></h1>
+	</div>
+
+</body>
+<style type="text/css">
+	body {
+		text-align: center;
+		background: lightblue;
+	}
+</style>
+<script type="text/javascript">
+	// Connect to the server
+	let socket = io.connect("localhost:3000");
+
+	// Submit the form
+	function submit() {
+		if (checkFields()) {
+			let data = {
+				email: document.getElementById('email').value,
+				password: document.getElementById('password').value,
+				firstName: document.getElementById('firstName').value,
+				lastName: document.getElementById('lastName').value
+			}
+			socket.emit('signup',data);
+			document.getElementById('title').innerHTML = "Account sucessfully created!";
+		} else {
+			document.getElementById('title').innerHTML = "Please make sure all of the fields are filled.";
+		}
+	}
+
+	function checkFields() {
+		if (document.getElementById('password').value === document.getElementById('confirmPassword').value &&
+			document.getElementById('password').value !== "" &&
+			document.getElementById('confirmPassword').value !== "" &&
+			document.getElementById('firstName') !== "" &&
+			document.getElementById('lastName').value !== "" &&
+			document.getElementById('email').value !== "") {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	socket.on('signupFail', () => {
+		document.getElementById('title').innerHTML = "Email already used.";
+	});
+</script>
+</html>
