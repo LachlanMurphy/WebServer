@@ -15,7 +15,7 @@ app.use(express.static(path));
 
 let io = require('socket.io')(server, {
 	cors: {
-		origin: "https://vps.lachlangmurphy.com",
+		origin: "https://lachlangmurphy.com",
 		methods: ["GET", "POST"]
 	}
 });
