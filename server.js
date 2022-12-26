@@ -4,12 +4,6 @@ function random(min, max) {
 
 // Import packages
 let express = require('express');
-let socket = require('socket.io')(httpServer, {
-	cors: {
-		origin: "https://vps.lachlangmurphy.com",
-		methods: ["GET", "POST"]
-	}
-});
 let fs = require('fs');
 
 let port = 3000;
@@ -19,7 +13,14 @@ let app = express();
 let server = app.listen(port);
 app.use(express.static(path));
 
-let io = socket(server);
+let io = require('socket.io')(server, {
+	cors: {
+		origin: "https://vps.lachlangmurphy.com",
+		methods: ["GET", "POST"]
+	}
+});
+
+// let io = socket(server);
 
 console.log("Server running " + path + " on port: " + port);
 
