@@ -4,7 +4,12 @@ function random(min, max) {
 
 // Import packages
 let express = require('express');
-let socket = require('socket.io');
+let socket = require('socket.io')(httpServer, {
+	cors: {
+		origin: "https://vps.lachlangmurphy.com",
+		methods: ["GET", "POST"]
+	}
+});
 let fs = require('fs');
 
 let port = 3000;
