@@ -40,7 +40,7 @@ fs.readFile('data.txt', 'utf8', (err, data) => {
 	try {
 		for (const a of acts)
 			accounts.set(a.email, new account(a));
-		console.log("Accounts refreshed.");
+		console.log("Accounts refreshed: ");
 	} catch (e) {
 		console.log("Could not refresh accounts: " + e);
 	}
@@ -116,6 +116,7 @@ io.sockets.on('connection', socket => {
 
 	// When the browser requests the current user
 	socket.on('getUserData', email => {
+		console.log(email, accounts.get(email));
 		io.to(socket.id).emit('userData', accounts.get(email));
 		console.log("Package sent to: "+socket.id);
 	});
