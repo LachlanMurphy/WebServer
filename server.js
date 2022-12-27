@@ -37,10 +37,11 @@ fs.readFile('data.txt', 'utf8', (err, data) => {
 	}
 	
 	let acts = data.toString().split("\n");
-	console.log(acts);
 	try {
-		for (const a of acts)
+		for (const a of acts) {
+			console.log(a, a.email);
 			accounts.set(a.email, new account(a));
+		}
 		console.log("Accounts refreshed");
 		console.log(accounts);
 	} catch (e) {
