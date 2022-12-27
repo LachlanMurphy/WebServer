@@ -40,7 +40,8 @@ fs.readFile('data.txt', 'utf8', (err, data) => {
 	try {
 		for (const a of acts)
 			accounts.set(a.email, new account(a));
-		console.log("Accounts refreshed: ");
+		console.log("Accounts refreshed");
+		console.log(accounts);
 	} catch (e) {
 		console.log("Could not refresh accounts: " + e);
 	}
