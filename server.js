@@ -13,14 +13,18 @@ let app = express();
 let server = app.listen(port);
 app.use(express.static(path));
 
+/*
+ * This is technically importing a package but
+ * in order to get arround cors we need to use
+ * the server variable to get around cors. io
+ * will handle our input and output.
+ */
 let io = require('socket.io')(server, {
 	cors: {
 		origin: "https://lachlangmurphy.com",
 		methods: ["GET", "POST"]
 	}
 });
-
-// let io = socket(server);
 
 console.log("Server running " + path + " on port: " + port);
 
