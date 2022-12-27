@@ -37,6 +37,7 @@ fs.readFile('data.txt', 'utf8', (err, data) => {
 	}
 	
 	let acts = data.toString().split("\n");
+	console.log(acts);
 	try {
 		for (const a of acts)
 			accounts.set(a.email, new account(a));
