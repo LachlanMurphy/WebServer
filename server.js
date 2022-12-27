@@ -36,7 +36,7 @@ fs.readFile('data.txt', 'utf8', (err, data) => {
 		return;
 	}
 	
-	let acts = data.toString().split("\n");
+	let acts = data.toString().split("\n").parse();
 	try {
 		for (const a of acts) {
 			console.log(a, a.email);
