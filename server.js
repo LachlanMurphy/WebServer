@@ -71,10 +71,17 @@ class account {
 		// } while (true);
 	}
 }
-
+const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 let currentConnections = new Map();
 io.sockets.on('connection', socket => {
-	console.log("Client Connect: " + socket.id);
+	const date = new Date();
+	console.log("Client Connect: " + socket.id + " "
+		+date.getFullYear()+"/"
+		+months[date.getMonth()]+"/"
+		+date.getDate()+", "
+		+date.getHours()+":"
+		+date.getMinutes()+":"
+		+date.getSeconds());
 
 	currentConnections.set(socket.id, socket);
 
