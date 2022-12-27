@@ -117,6 +117,7 @@ io.sockets.on('connection', socket => {
 	// When the browser requests the current user
 	socket.on('getUserData', email => {
 		io.to(socket.id).emit('userData', accounts.get(email));
+		console.log("Package sent to: "+socket.id);
 	});
 
 	socket.on('disconnect', socket => {
