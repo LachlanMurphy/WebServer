@@ -123,9 +123,16 @@ io.sockets.on('connection', socket => {
 
 	// When the browser requests the current user
 	socket.on('getUserData', email => {
-		console.log(accounts, accounts.get(email));
 		io.to(socket.id).emit('userData', accounts.get(email));
-		console.log("Package sent to: "+socket.id);
+	});
+
+	// When the browser requests key match
+	socket.on('getKeyMatch', key => {
+		for (const a of accounts) {
+			if (a.loginKey === key) {
+				io.to(socket.id).emit('keyMatch', a);
+			}
+		}
 	});
 
 	socket.on('disconnect', socket => {
