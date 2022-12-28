@@ -151,7 +151,7 @@ io.sockets.on('connection', socket => {
 
 	socket.on('requestKey', email => {
 		accounts.get(email).assignKey();
-		io.to(socket.id).emit(accounts.get(email).loginKey);
+		io.to(socket.id).emit('sendKey', accounts.get(email).loginKey);
 	});
 
 	// When the client disconnects
