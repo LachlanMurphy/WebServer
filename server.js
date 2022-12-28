@@ -128,7 +128,8 @@ io.sockets.on('connection', socket => {
 
 	// When the browser requests key match
 	socket.on('getKeyMatch', key => {
-		for (const [key, act] of accounts) {
+		for (const map of accounts) {
+			let act = map[1];
 			console.log(act.loginKey, key, act);
 			if (act.loginKey === key) {
 				console.log(act);
