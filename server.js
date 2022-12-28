@@ -77,6 +77,10 @@ class account {
 	resetKey() {
 		this.loginKey = "";
 	}
+
+	assignKey() {
+		this.loginKey = random(0,1000);
+	}
 }
 const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 let currentConnections = new Map();
@@ -143,6 +147,11 @@ io.sockets.on('connection', socket => {
 		}
 		
 		io.to(socket.id).emit('noKeyMatch');
+	});
+
+	socket.on('requestKey', email => {
+		accounts.get(email).assignKey();
+		io.to(socket.id).emit(accounts.get(email).loginKey);
 	});
 
 	// When the client disconnects
