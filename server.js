@@ -131,11 +131,11 @@ io.sockets.on('connection', socket => {
 		for (const [k,act] of accounts) {
 			if (act.loginKey == key) {
 				io.to(socket.id).emit('keyMatch', act);
-				console.log("All good");
 				return;
 			}
 		}
-		console.log("problem");
+		
+		io.to(socket.id).emit('noKeyMatch');
 	});
 
 	socket.on('disconnect', socket => {
