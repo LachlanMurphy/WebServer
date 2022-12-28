@@ -56,6 +56,9 @@ class account {
 		this.password = data.password;
 		this.loginKey = "";
 
+		resetKey()
+			loginKey ="";
+
 
 		// Don't need this for now
 		// Assigns the account a random ID not already in use
@@ -128,9 +131,12 @@ io.sockets.on('connection', socket => {
 
 	// When the browser requests key match
 	socket.on('getKeyMatch', key => {
-		for (const [k,act] of accounts) {
+		let k = Array.from(accounts.keys());
+		for (let i = 0; i < k.length; i++) {
+			let act = accounts.get(k[i]);
 			if (act.loginKey == key) {
 				io.to(socket.id).emit('keyMatch', act);
+				act.resetKey();
 				return;
 			}
 		}
