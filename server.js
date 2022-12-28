@@ -56,9 +56,6 @@ class account {
 		this.password = data.password;
 		this.loginKey = "";
 
-		resetKey()
-			this.loginKey = "";
-
 
 		// Don't need this for now
 		// Assigns the account a random ID not already in use
@@ -75,6 +72,10 @@ class account {
 		// 		break;
 		// 	}
 		// } while (true);
+	}
+
+	resetKey() {
+		this.loginKey = "";
 	}
 }
 const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
