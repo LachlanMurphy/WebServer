@@ -41,6 +41,8 @@
 	}
 
 	socket.on('signinSuccessful', key => {
+		console.log(key);
+		debugger;
 		localStorage.setItem('user', document.getElementById('email').value);
 		if (localStorage.getItem('lastPlace') !== null)
 			window.location.replace(localStorage.getItem('lastPlace'));

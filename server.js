@@ -96,7 +96,7 @@ io.sockets.on('connection', socket => {
 				// to create a unique key so the browser can identify
 				// the user and embed it in the url
 				accounts.get(data.email).loginKey = random(1000);
-				debugger;
+				console.log(accounts.get(data.email).loginKey);
 				io.to(socket.id).emit('signinSuccessful', accounts.get(data.email).loginKey);
 			} else {
 				io.to(socket.id).emit('passwordFail');
