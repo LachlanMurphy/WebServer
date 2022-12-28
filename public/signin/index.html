@@ -44,8 +44,12 @@
 		localStorage.setItem('user', document.getElementById('email').value);
 		if (localStorage.getItem('lastPlace') !== null)
 			window.location.replace(localStorage.getItem('lastPlace'));
-		else
-			window.location.replace('http://lachlangmurphy.com');
+		else {
+			let loc = window.open('https://lachlangmurphy.com/');
+			loc.onload = () => {
+				loc.user = document.getElementById('email.value');
+			}
+		}
 	});
 
 	socket.on('passwordFail', () => {
