@@ -128,8 +128,8 @@ io.sockets.on('connection', socket => {
 
 	// When the browser requests key match
 	socket.on('getKeyMatch', key => {
-		console.log(key);
 		for (const a of accounts) {
+			console.log(a.loginKey, key);
 			if (a.loginKey === key) {
 				console.log(a);
 				io.to(socket.id).emit('keyMatch', a);
