@@ -40,15 +40,15 @@
 		socket.emit('signin',data);
 	}
 
-	socket.on('signinSuccessful', () => {
+	socket.on('signinSuccessful', key => {
 		localStorage.setItem('user', document.getElementById('email').value);
 		if (localStorage.getItem('lastPlace') !== null)
 			window.location.replace(localStorage.getItem('lastPlace'));
 		else {
-			let loc = window.open('https://lachlangmurphy.com/');
-			loc.onload = () => {
-				loc.user = document.getElementById('email.value');
-			}
+			let param = new URLSearchParams();
+			param.append('user', key);
+			let url = "https://lachlangmurphy.com/Home/?" + param.toString();
+			window.location.replace(url);
 		}
 	});
 

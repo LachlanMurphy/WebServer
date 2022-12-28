@@ -54,6 +54,7 @@ class account {
 		this.lastName = data.lastName;
 		this.email = data.email;
 		this.password = data.password;
+		this.loginKey = "";
 
 
 		// Don't need this for now
@@ -91,7 +92,11 @@ io.sockets.on('connection', socket => {
 	socket.on('signin', data => {
 		if (accounts.has(data.email)) {
 			if (accounts.get(data.email).password === data.password) {
-				io.to(socket.id).emit('signinSuccessful');
+				// In order to keep the user between domains we need
+				// to create a unique key so the browser can identify
+				// the user and embed it in the url
+				let key = random(1000);
+				io.to(socket.id).emit('signinSuccessful', key);
 			} else {
 				io.to(socket.id).emit('passwordFail');
 			}
