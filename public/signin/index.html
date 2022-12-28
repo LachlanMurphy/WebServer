@@ -41,17 +41,11 @@
 	}
 
 	socket.on('signinSuccessful', key => {
-		console.log(key);
-		localStorage.setItem('user', document.getElementById('email').value);
-		if (localStorage.getItem('lastPlace') !== null)
-			window.location.replace(localStorage.getItem('lastPlace'));
-		else {
-			// Embed the key given by the server then send back to main page
-			let param = new URLSearchParams();
-			param.append('user', key);
-			let url = "https://lachlangmurphy.com/Home/?" + param.toString();
-			window.location.replace(url);
-		}
+		// Embed the key given by the server then send back to main page
+		let param = new URLSearchParams();
+		param.append('user', key);
+		let url = "https://lachlangmurphy.com/Home/?" + param.toString();
+		window.location.replace(url);
 	});
 
 	socket.on('passwordFail', () => {

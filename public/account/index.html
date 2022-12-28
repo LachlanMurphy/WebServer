@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://cdn.socket.io/4.5.3/socket.io.min.js" integrity="sha384-WPFUvHkB1aHA5TDSZi6xtDgkF0wXJcIIxXhC6h8OT8EH3fC5PWro5pWJ1THjcfEi" crossorigin="anonymous"></script>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Account</title>
+</head>
+<body>
+
+</body>
+
+<script type="text/javascript">
+	const socket = io("https://account.lachlangmurphy.com");
+
+	// Grab the user from the login stuff
+	let param = new URLSearchParams(window.location.search);
+	let key = param.get("user");
+
+	if (key !== null) {
+		socket.emit('getKeyMatch', key);
+	}
+
+	let user;
+	socket.on('keyMatch', act => user = act);
+	socket.on('noKeyMatch', () => console.log("No key match found."));
+</script>
+
+</html>
