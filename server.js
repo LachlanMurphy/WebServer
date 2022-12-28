@@ -37,6 +37,7 @@ fs.readFile('data.txt', 'utf8', (err, data) => {
 	}
 	
 	let acts = data.toString().split("\n");
+	console.log(acts);
 	try {
 		for (const b of acts) {
 			let b = JSON.parse(b);
