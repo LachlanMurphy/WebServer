@@ -95,8 +95,9 @@ io.sockets.on('connection', socket => {
 				// In order to keep the user between domains we need
 				// to create a unique key so the browser can identify
 				// the user and embed it in the url
-				let key = random(1000);
-				io.to(socket.id).emit('signinSuccessful', key);
+				accounts.get(data.email).loginKey = random(1000);
+				debugger;
+				io.to(socket.id).emit('signinSuccessful', accounts.get(data.email).loginKey);
 			} else {
 				io.to(socket.id).emit('passwordFail');
 			}
