@@ -57,7 +57,7 @@ class account {
 		this.loginKey = "";
 
 		resetKey()
-			loginKey ="";
+			this.loginKey = "";
 
 
 		// Don't need this for now
