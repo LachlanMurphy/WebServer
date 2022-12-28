@@ -37,10 +37,9 @@ fs.readFile('data.txt', 'utf8', (err, data) => {
 	}
 	
 	let acts = data.toString().split("\n");
-	console.log(acts);
+	console.log(JSON.parse(acts[0]).email);
 	try {
 		for (let b of acts) {
-			console.log(b)
 			let a = JSON.stringify(JSON.parse(b));
 			console.log(a, a.email);
 			accounts.set(a.email, new account(a));
