@@ -16,8 +16,8 @@ app.use(express.static(path));
 /*
  * This is technically importing a package but
  * in order to get arround cors we need to use
- * the server variable to get around cors. io
- * will handle our input and output.
+ * the server variable. io will handle our input
+ * and output.
  */
 let io = require('socket.io')(server, {
 	cors: {
@@ -145,6 +145,7 @@ io.sockets.on('connection', socket => {
 		io.to(socket.id).emit('noKeyMatch');
 	});
 
+	// When the client disconnects
 	socket.on('disconnect', socket => {
 		for (let i = 0; i < currentConnections.length-1; i++) {
 			if (!currentConnections[i].connected) {
