@@ -40,11 +40,9 @@ fs.readFile('data.txt', 'utf8', (err, data) => {
 	try {
 		for (let i = 0; i < acts.length; i++) {
 			let a = JSON.parse(acts[i]);
-			console.log(a, a.email);
 			accounts.set(a.email, new account(a));
 		}
-		console.log("Accounts refreshed");
-		console.log(accounts);
+		console.log("Accounts refreshed.");
 	} catch (e) {
 		console.log("Could not refresh accounts: " + e);
 	}
