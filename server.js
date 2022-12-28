@@ -128,14 +128,14 @@ io.sockets.on('connection', socket => {
 
 	// When the browser requests key match
 	socket.on('getKeyMatch', key => {
-		for (const map of accounts) {
-			let act = map[1];
-			console.log(act.loginKey, key, act);
+		for (const [k,act] of accounts) {
 			if (act.loginKey == key) {
-				console.log(act);
 				io.to(socket.id).emit('keyMatch', act);
+				console.log("All good");
+				return;
 			}
 		}
+		console.log("problem");
 	});
 
 	socket.on('disconnect', socket => {
