@@ -38,8 +38,8 @@ fs.readFile('data.txt', 'utf8', (err, data) => {
 	
 	let acts = data.toString().split("\n");
 	try {
-		for (const a of acts) {
-			JSON.stringify(a);
+		for (const b of acts) {
+			let a = JSON.stringify(b);
 			console.log(a, a.email);
 			accounts.set(a.email, new account(a));
 		}
