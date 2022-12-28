@@ -40,7 +40,8 @@ fs.readFile('data.txt', 'utf8', (err, data) => {
 	console.log(acts);
 	try {
 		for (const b of acts) {
-			let b = JSON.parse(b);
+			console.log(b)
+			let a = JSON.stringify(JSON.parse(b));
 			console.log(a, a.email);
 			accounts.set(a.email, new account(a));
 		}
