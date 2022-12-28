@@ -41,7 +41,7 @@
 	}
 
 	socket.on('signinSuccessful', () => {
-		sessionStorage.setItem('currentUser', document.getElementById('email').value);
+		sessionStorage.setItem('user', document.getElementById('email').value);
 		if (sessionStorage.getItem('lastPlace') !== null)
 			window.location.replace(sessionStorage.getItem('lastPlace'));
 		else
