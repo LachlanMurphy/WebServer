@@ -131,7 +131,7 @@ io.sockets.on('connection', socket => {
 		for (const map of accounts) {
 			let act = map[1];
 			console.log(act.loginKey, key, act);
-			if (act.loginKey === key) {
+			if (act.loginKey == key) {
 				console.log(act);
 				io.to(socket.id).emit('keyMatch', act);
 			}
