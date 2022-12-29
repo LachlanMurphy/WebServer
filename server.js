@@ -47,6 +47,8 @@ fs.readFile('data.txt', 'utf8', (err, data) => {
 		console.error("Exception while finding file: " + err);
 		return;
 	}
+
+	console.log(data);
 	
 	let acts = data.toString().split("\n");
 	try {
