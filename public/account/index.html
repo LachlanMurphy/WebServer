@@ -68,9 +68,9 @@
 
 	function setup() {
 		document.getElementById('title').innerHTML = "Welcome " + user.firstName+" "+user.lastName+".";
-		document.getElementById('firstName').innerHTML = user.firstName;
-		document.getElementById('lastName').innerHTML = user.lastName;
-		document.getElementById('email').innerHTML = user.email;
+		document.getElementById('firstName').innerHTML = "First Name: " + user.firstName;
+		document.getElementById('lastName').innerHTML = "Last Name: " + user.lastName;
+		document.getElementById('email').innerHTML = "Email: " + user.email;
 	}
 
 	function sendChanges() {
