@@ -140,10 +140,10 @@ io.sockets.on('connection', socket => {
 				console.error("Exception while finding file: " + err);
 				return;
 			}
+
+			console.log(serverData);
 			
 			acts = serverData.toString();
-			console.log(acts);
-			console.log(serverData);
 			acts += JSON.stringify(data)+"\n";
 			console.log(acts);
 		});
