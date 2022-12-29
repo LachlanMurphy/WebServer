@@ -158,7 +158,7 @@ io.sockets.on('connection', socket => {
 		let act = accounts.get(data.email);
 		for (const key in data) {
 			if (data[key] != "") {
-				act.key = data[key];
+				act[key] = data[key];
 				break;
 			}
 		}
