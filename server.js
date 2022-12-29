@@ -3,10 +3,11 @@ function random(min, max) {
 }
 
 function updateData() {
-	let acts = "";
+	let acts = [];
 	for (const [key,data] of accounts) {
-		acts += JSON.stringify(data)+"\n";
+		acts.push(JSON.stringify(data));
 	}
+	acts.join('\n');
 	fs.writeFile('data.txt',acts, (e) => {
 		if (e) {
 			return console.log(e);
