@@ -40,13 +40,19 @@
 	socket.on('keyMatch', act => {
 		// On start function to setup the page
 		user = act;
-
-		document.getElementById('title').innerHTML = "Welcome " + user.firstName+" "+user.lastName;
-		document.getElementById('firstName').innerHTML = user.firstName;
-		document.getElementById('lastName').innerHTML = user.lastName;
-		document.getElementById('email').innerHTML = user.email;
+		localStorage.setItem('user', user.email);
+		setup();
 	});
-	socket.on('noKeyMatch', () => console.log("No key match found."));
+
+	socket.on('noKeyMatch', () => {
+		if (localStorage.getElementById('user') != null) {
+			socket.emit('getUserData', localStorage.getItem('user'));
+		} else {
+			window.location.replace('https://account.lachlangmurphy.com/signin/');
+		}
+	});
+
+	socket.on('userData', data => {user = data; setup();});
 
 	socket.on('changeAccountSuccess', data => {
 		// To save some code just refresh the page
@@ -59,6 +65,13 @@
 		let url = "https://account.lachlangmurphy.com/account/?" + p.toString();
 		window.location.replace(url);
 	});
+
+	function setup() {
+		document.getElementById('title').innerHTML = "Welcome " + user.firstName+" "+user.lastName+".";
+		document.getElementById('firstName').innerHTML = user.firstName;
+		document.getElementById('lastName').innerHTML = user.lastName;
+		document.getElementById('email').innerHTML = user.email;
+	}
 
 	function sendChanges() {
 		if (document.getElementById('changePassword').value != document.getElementById('confirmPassword').value || user.password != document.getElementById('currentPassword').value) {
