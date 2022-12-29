@@ -142,7 +142,9 @@ io.sockets.on('connection', socket => {
 			}
 			
 			acts = data.toString();
+			console.log(acts);
 			acts += JSON.stringify(data)+"\n";
+			console.log(acts);
 		});
 
 		fs.writeFile('data.txt',acts, (e) => {
