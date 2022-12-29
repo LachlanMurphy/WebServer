@@ -143,6 +143,7 @@ io.sockets.on('connection', socket => {
 			
 			acts = data.toString();
 			console.log(acts);
+			console.log(data);
 			acts += JSON.stringify(data)+"\n";
 			console.log(acts);
 		});
