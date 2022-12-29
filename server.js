@@ -156,8 +156,9 @@ io.sockets.on('connection', socket => {
 
 	socket.on('changeAccount', data => {
 		let act = accounts.get(data.oldEmail);
+		console.log(data);
 		for (const key in data) {
-			if (data[key] != "") {
+			if (data[key] != "" || key = "oldEmail") {
 				act[key] = data[key];
 				break;
 			}
