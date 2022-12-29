@@ -162,7 +162,7 @@ io.sockets.on('connection', socket => {
 				accounts.get(data.email)[key] = data[key];
 			}
 		}
-		accounts.remove(data.oldEmail);
+		accounts.delete(data.oldEmail);
 		console.log(accounts);
 		io.to(socket.id).emit('changeAccountSuccess', accounts.get(data.email));
 	});
