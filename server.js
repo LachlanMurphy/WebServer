@@ -4,8 +4,8 @@ function random(min, max) {
 
 function updateData() {
 	let acts = "";
-	for (const a of accounts) {
-		acts += JSON.stringify(a)+"\n";
+	for (const [key,data] of accounts) {
+		acts += JSON.stringify(data)+"\n";
 	}
 	fs.writeFile('data.txt',acts, (e) => {
 		if (e) {
