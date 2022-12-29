@@ -134,25 +134,7 @@ io.sockets.on('connection', socket => {
 			return;
 		}
 
-		let acts;
-		fs.readFile('data.txt', 'utf8', (err, serverData) => {
-			if (err) {
-				console.error("Exception while finding file: " + err);
-				return;
-			}
-
-			console.log(serverData);
-			
-			acts = serverData.toString();
-			acts += JSON.stringify(data)+"\n";
-			console.log(acts);
-		});
-
-		fs.writeFile('data.txt',acts, (e) => {
-			if (e) {
-				return console.log(e);
-			}
-		});
+		updateData();
 	});
 
 	// When the browser requests the current user
