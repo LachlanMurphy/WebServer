@@ -159,9 +159,10 @@ io.sockets.on('connection', socket => {
 		for (const key in data) {
 			if (data[key] != "") {
 				act.key = data[key];
+				break;
 			}
 		}
-		io.to(socket.id).emit('accountChangeSuccess', act);
+		io.to(socket.id).emit('changeAccountSuccess', act);
 	});
 
 	// When the client disconnects
