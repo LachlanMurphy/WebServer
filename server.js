@@ -2,6 +2,18 @@ function random(min, max) {
 	return Math.round(Math.random() * (max - min) + min);
 }
 
+function updateData() {
+	let acts = "";
+	for (const a of accounts) {
+		acts += JSON.stringify(a)+"\n";
+	}
+	fs.writeFile('data.txt',acts, (e) => {
+		if (e) {
+			return console.log(e);
+		}
+	});
+}
+
 // Import packages
 let express = require('express');
 let fs = require('fs');
@@ -119,13 +131,24 @@ io.sockets.on('connection', socket => {
 			accounts.set(data.email, new account(data));
 		} else {
 			io.to(socket.id).emit('signupFail');
+			return;
 		}
 
-		fs.writeFile('data.txt',JSON.stringify(data), (e) => {
+		let acts;
+		fs.readFile('data.txt', 'utf8', (err, data) => {
+			if (err) {
+				console.error("Exception while finding file: " + err);
+				return;
+			}
+			
+			acts = data.toString();
+			acts += JSON.stringify(data)+"\n";
+		});
+
+		fs.writeFile('data.txt',acts, (e) => {
 			if (e) {
 				return console.log(e);
 			}
-			console.log("File saved");
 		});
 	});
 
@@ -163,8 +186,9 @@ io.sockets.on('connection', socket => {
 			}
 		}
 		accounts.delete(data.oldEmail);
-		console.log(accounts);
 		io.to(socket.id).emit('changeAccountSuccess', accounts.get(data.email));
+
+		updateData();
 	});
 
 	// When the client disconnects
