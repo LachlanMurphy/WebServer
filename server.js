@@ -155,10 +155,16 @@ io.sockets.on('connection', socket => {
 	});
 
 	socket.on('changeAccount', data => {
-		console.log(data);
-		accounts.set(data.oldEmail, new account(data));
+		let oldAct = accounts.get(data.oldEmail);
+		accounts.set(data.email, oldAct);
+		for (const key in data) {
+			if (data[key] != "") {
+				accounts.get(data.email)[key] = data[key];
+			}
+		}
+		accounts.remove(data.oldEmail);
 		console.log(accounts);
-		io.to(socket.id).emit('changeAccountSuccess', act);
+		io.to(socket.id).emit('changeAccountSuccess', accounts.get(data.email));
 	});
 
 	// When the client disconnects
