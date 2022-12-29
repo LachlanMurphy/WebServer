@@ -45,7 +45,7 @@
 	});
 
 	socket.on('noKeyMatch', () => {
-		if (localStorage.getElementById('user') != null) {
+		if (localStorage.getItem('user') != null) {
 			socket.emit('getUserData', localStorage.getItem('user'));
 		} else {
 			window.location.replace('https://account.lachlangmurphy.com/signin/');
