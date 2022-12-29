@@ -8,7 +8,6 @@ function updateData() {
 		acts.push(JSON.stringify(data));
 	}
 	let data = acts.join('\n');
-	console.log(data,acts);
 	fs.writeFile('data.txt',data, (e) => {
 		if (e) {
 			return console.log(e);

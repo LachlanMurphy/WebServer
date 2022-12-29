@@ -12,10 +12,18 @@
 	<h3 id="firstName"></h3><h3>Change First Name: <input type="text" id="changeFirstName"></h3>
 	<h3 id="lastName"></h3><h3>Change Last Name: <input type="text" id="changeLastName"></h3>
 	<h3 id="email"></h3><h3>Change Email: <input type="text" id="changeEmail"></h3>
+	<h3>Current Password to Confirm Changes: <input type="text" id="currentPassword"></h3>
 	<h3>Change Password: <input type="text" id="changePassword"></h3>
 	<h3>Confirm New Password: <input type="text" id="confirmPassword"></h3>
 	<input type="submit" value="Confirm Changes" onclick="sendChanges();">
 </body>
+
+<style type="text/css">
+	body {
+		text-align: center;
+    	background: lightblue;
+	}
+</style>
 
 <script type="text/javascript">
 	const socket = io("https://account.lachlangmurphy.com");
@@ -30,16 +38,19 @@
 
 	let user;
 	socket.on('keyMatch', act => {
+		// On start function to setup the page
 		user = act;
 
 		document.getElementById('title').innerHTML = "Welcome " + user.firstName+" "+user.lastName;
+		document.getElementById('firstName').innerHTML = user.firstName;
+		document.getElementById('lastName').innerHTML = user.lastName;
+		document.getElementById('email').innerHTML = user.email;
 	});
 	socket.on('noKeyMatch', () => console.log("No key match found."));
 
 	socket.on('changeAccountSuccess', data => {
 		// To save some code just refresh the page
-		socket.emit('requestKey', data.email);
-		console.log("Changed account success");
+		socket.emit('requestKey', data.email);\
 	});
 
 	socket.on('sendKey', key => {
@@ -50,7 +61,11 @@
 	});
 
 	function sendChanges() {
-		if (document.getElementById('changePassword').value != document.getElementById('confirmPassword').value) return;
+		if (document.getElementById('changePassword').value != document.getElementById('confirmPassword').value || user.password != document.getElementById('currentPassword').value) {
+			document.getElementById('confirmPassword').style = "border: solid 1px red;";
+			document.getElementById('changePassword').style = "border: solid 1px red;";
+			document.getElementById('currentPassword').style = "border: solid 1px red;";
+		}
 
 		data = {
 			oldEmail: user.email,
@@ -61,7 +76,6 @@
 		}
 
 		socket.emit('changeAccount', data);
-		console.log("Changed Account");
 	}
 </script>
 
