@@ -56,7 +56,7 @@
 
 	socket.on('changeAccountSuccess', data => {
 		// To save some code just refresh the page
-		socket.emit('requestKey', data.email);\
+		socket.emit('requestKey', data.email);
 	});
 
 	socket.on('sendKey', key => {
