@@ -38,7 +38,8 @@
 
 	socket.on('changeAccountSuccess', data => {
 		// To save some code just refresh the page
-		socket.emit('request', data.email);
+		socket.emit('requestKey', data.email);
+		console.log("Changed account success");
 	});
 
 	socket.on('sendKey', key => {
@@ -59,6 +60,7 @@
 		}
 
 		socket.emit('changeAccount', data);
+		console.log("Changed Account");
 	}
 </script>
 
