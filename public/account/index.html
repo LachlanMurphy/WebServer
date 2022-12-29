@@ -53,6 +53,7 @@
 		if (document.getElementById('changePassword').value != document.getElementById('confirmPassword').value) return;
 
 		data = {
+			oldEmail: user.email,
 			firstName: document.getElementById('changeFirstName').value,
 			lastName: document.getElementById('changeLastName').value,
 			email: document.getElementById('changeEmail').value,
