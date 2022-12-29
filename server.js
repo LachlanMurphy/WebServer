@@ -135,15 +135,15 @@ io.sockets.on('connection', socket => {
 		}
 
 		let acts;
-		fs.readFile('data.txt', 'utf8', (err, data) => {
+		fs.readFile('data.txt', 'utf8', (err, serverData) => {
 			if (err) {
 				console.error("Exception while finding file: " + err);
 				return;
 			}
 			
-			acts = data.toString();
+			acts = serverData.toString();
 			console.log(acts);
-			console.log(data);
+			console.log(serverData);
 			acts += JSON.stringify(data)+"\n";
 			console.log(acts);
 		});
