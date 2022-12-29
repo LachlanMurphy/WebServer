@@ -8,7 +8,13 @@
 	<title>Account</title>
 </head>
 <body>
-
+	<h1 id="title"></h1>
+	<h3 id="firstName"></h3><h3>Change First Name: <input type="text" id="changeFirstName"></h3>
+	<h3 id="lastName"></h3><h3>Change Last Name: <input type="text" id="changeLastName"></h3>
+	<h3 id="email"></h3><h3>Change Email: <input type="text" id="changeEmail"></h3>
+	<h3>Change Password: <input type="text" id="changePassword"></h3>
+	<h3>Confirm New Password: <input type="text" id="confirmPassword"></h3>
+	<input type="submit" value="Confirm Changes" onclick="sendChanges();">
 </body>
 
 <script type="text/javascript">
@@ -23,8 +29,25 @@
 	}
 
 	let user;
-	socket.on('keyMatch', act => user = act);
+	socket.on('keyMatch', act => {
+		user = act;
+
+		document.getElementById('title').innerHTML = "Welcome " + user.firstName+" "+user.lastName;
+	});
 	socket.on('noKeyMatch', () => console.log("No key match found."));
+
+	function confirmChanges() {
+		if (document.getElementById('changePassword').value != document.getElementById('confirmPassword').value) return;
+
+		data = {
+			firstName: document.getElementById('changeFirstName').value,
+			lastName: document.getElementById('changeLastName').value,
+			email: document.getElementById('changeEmail').value,
+			passwrod: document.getElementById('changePassword').value
+		}
+
+		socket.emit('changeAccount', data);
+	}
 </script>
 
 </html>
