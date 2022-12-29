@@ -162,6 +162,7 @@ io.sockets.on('connection', socket => {
 				break;
 			}
 		}
+		console.log(act);
 		io.to(socket.id).emit('changeAccountSuccess', act);
 	});
 
