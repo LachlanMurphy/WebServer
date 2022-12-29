@@ -7,8 +7,9 @@ function updateData() {
 	for (const [key,data] of accounts) {
 		acts.push(JSON.stringify(data));
 	}
-	acts.join('\n');
-	fs.writeFile('data.txt',acts, (e) => {
+	let data = acts.join('\n');
+	console.log(data,acts);
+	fs.writeFile('data.txt',data, (e) => {
 		if (e) {
 			return console.log(e);
 		}
