@@ -36,6 +36,18 @@
 	});
 	socket.on('noKeyMatch', () => console.log("No key match found."));
 
+	socket.on('changeAccountSuccess', data => {
+		// To save some code just refresh the page
+		socket.emit('request', data.email);
+	});
+
+	socket.on('sendKey', key => {
+		let p = new URLSearchParams();
+		p.append('user', key);
+		let url = "https://account.lachlangmurphy.com/account/?" + p.toString();
+		window.location.replace(url);
+	});
+
 	function confirmChanges() {
 		if (document.getElementById('changePassword').value != document.getElementById('confirmPassword').value) return;
 

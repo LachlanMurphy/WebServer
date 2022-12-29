@@ -154,6 +154,16 @@ io.sockets.on('connection', socket => {
 		io.to(socket.id).emit('sendKey', accounts.get(email).loginKey);
 	});
 
+	socket.on('changeAccount', data => {
+		let act = accounts.get(data.email);
+		for (const key in data) {
+			if (data[key] != "") {
+				act.key = data[key];
+			}
+		}
+		io.to(socket.id).emit('accountChangeSuccess', act);
+	});
+
 	// When the client disconnects
 	socket.on('disconnect', socket => {
 		for (let i = 0; i < currentConnections.length-1; i++) {
