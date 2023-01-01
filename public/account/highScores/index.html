@@ -9,9 +9,12 @@
 </head>
 <body>
 	<h1 id="title"></h1>
-	<a href="highScores/">View High Scores</a>
-    <a href="leaderboards/">View Global Leaderboards</a>
-    <a href="accountChanges/">Change Account</a>
+	<h3 id="tetris">No Score Available</h3>
+	<h3 id="snake">No Score Available</h3>
+	<h3 id="asteroids">No Score Available</h3>
+	<h3 id="agario">No Score Available</h3>
+	<h3 id="galaga">No Score Available</h3>
+	<h3 id="minesweeper">No Score Available</h3>
 </body>
 
 <style type="text/css">
@@ -64,6 +67,12 @@
 
 	function setup() {
 		document.getElementById('title').innerHTML = "Welcome " + user.firstName + " " + user.lastName + ".";
+        document.getElementById('tetris').innerHTML = "Tetris: " + user.tetrisHigh;
+        document.getElementById('snake').innerHTML = "Snake: " + user.snakeHigh;
+        document.getElementById('asteroids').innerHTML = "Asteroids: " + user.asteroidsHigh;
+        document.getElementById('galaga').innerHTML = "Galaga: " + user.galgaHigh;
+        document.getElementById('minesweeper').innerHTML = "Mine Sweeper: " + user.minesweeperHigh;
+        document.getElementById('agario').innerHTML = "Agario: " + user.agarioHigh;
 	}
 </script>
 

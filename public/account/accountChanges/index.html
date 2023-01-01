@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://cdn.socket.io/4.5.3/socket.io.min.js" integrity="sha384-WPFUvHkB1aHA5TDSZi6xtDgkF0wXJcIIxXhC6h8OT8EH3fC5PWro5pWJ1THjcfEi" crossorigin="anonymous"></script>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Account</title>
+</head>
+<body>
+	<h1 id="title"></h1>
+	<h3 id="firstName"></h3><h3>Change First Name: <input type="text" id="changeFirstName"></h3>
+	<h3 id="lastName"></h3><h3>Change Last Name: <input type="text" id="changeLastName"></h3>
+	<h3 id="email"></h3><h3>Change Email: <input type="text" id="changeEmail"></h3>
+	<h3>Current Password to Confirm Changes: <input type="text" id="currentPassword"></h3>
+	<h3>Change Password: <input type="text" id="changePassword"></h3>
+	<h3>Confirm New Password: <input type="text" id="confirmPassword"></h3>
+	<input type="submit" value="Confirm Changes" onclick="sendChanges();">
+</body>
+
+<style type="text/css">
+	body {
+		text-align: center;
+    	background: lightblue;
+	}
+</style>
+
+<script type="text/javascript">
+	const socket = io("https://account.lachlangmurphy.com");
+
+	// Grab the user from the login stuff
+	let param = new URLSearchParams(window.location.search);
+	let key = param.get("user");
+
+	if (key !== null) {
+		socket.emit('getKeyMatch', key);
+	}
+
+	let user;
+	socket.on('keyMatch', act => {
+		// On start function to setup the page
+		user = act;
+		localStorage.setItem('user', user.email);
+		setup();
+	});
+
+	socket.on('noKeyMatch', () => {
+		if (localStorage.getItem('user') != null) {
+			socket.emit('getUserData', localStorage.getItem('user'));
+		} else {
+			window.location.replace('https://account.lachlangmurphy.com/signin/');
+		}
+	});
+
+	socket.on('userData', data => {user = data; setup();});
+
+	socket.on('changeAccountSuccess', data => {
+		// To save some code just refresh the page
+		socket.emit('requestKey', data.email);
+	});
+
+	socket.on('sendKey', key => {
+		let p = new URLSearchParams();
+		p.append('user', key);
+		let url = "https://account.lachlangmurphy.com/account/?" + p.toString();
+		window.location.replace(url);
+	});
+
+	function setup() {
+		document.getElementById('title').innerHTML = "Welcome " + user.firstName+" "+user.lastName+".";
+		document.getElementById('firstName').innerHTML = "First Name: " + user.firstName;
+		document.getElementById('lastName').innerHTML = "Last Name: " + user.lastName;
+		document.getElementById('email').innerHTML = "Email: " + user.email;
+	}
+
+	function sendChanges() {
+		if (document.getElementById('changePassword').value != document.getElementById('confirmPassword').value || user.password != document.getElementById('currentPassword').value) {
+			document.getElementById('confirmPassword').style = "border: solid 1px red;";
+			document.getElementById('changePassword').style = "border: solid 1px red;";
+			document.getElementById('currentPassword').style = "border: solid 1px red;";
+			return;
+		}
+
+		data = {
+			oldEmail: user.email,
+			firstName: document.getElementById('changeFirstName').value,
+			lastName: document.getElementById('changeLastName').value,
+			email: document.getElementById('changeEmail').value,
+			password: document.getElementById('changePassword').value
+		}
+
+		socket.emit('changeAccount', data);
+	}
+</script>
+
+</html>

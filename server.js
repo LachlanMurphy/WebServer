@@ -70,6 +70,12 @@ class account {
 		this.email = data.email;
 		this.password = data.password;
 		this.loginKey = "";
+		this.snakeHigh = data.snakeHigh;
+		this.agarioHigh = data.agarioHigh;
+		this.minesweeperHigh = data.minesweeperHigh;
+		this.tetrisHigh = data.tetrisHigh;
+		this.asteroidsHigh = data.asteroidsHigh;
+		this.galagaHigh = data.galagaHigh;
 
 
 		// Don't need this for now
