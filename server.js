@@ -70,12 +70,30 @@ class account {
 		this.email = data.email;
 		this.password = data.password;
 		this.loginKey = "";
-		this.snakeHigh = data.snakeHigh;
-		this.agarioHigh = data.agarioHigh;
-		this.minesweeperHigh = data.minesweeperHigh;
-		this.tetrisHigh = data.tetrisHigh;
-		this.asteroidsHigh = data.asteroidsHigh;
-		this.galagaHigh = data.galagaHigh;
+		if (data.snakeHigh != null)
+			this.snakeHigh = data.snakeHigh;
+		else
+			this.snakeHigh = "No High Score";
+		if (data.agarioHigh != null)
+			this.agarioHigh = data.agarioHigh;
+		else
+			this.agarioHigh = "No High Score";
+		if (data.minesweeperHigh != null)
+			this.minesweeperHigh = data.minesweeperHigh;
+		else
+			this.minesweeperHigh = "No High Score";
+		if (data.tetrisHigh != null)
+			this.tetrisHigh = data.tetrisHigh;
+		else
+			this.tetrisHigh = "No High Score";
+		if (data.asteroidsHigh != null)
+			this.asteroidsHigh = data.asteroidsHigh;
+		else
+			this.asteroidsHigh = "No High Score";
+		if (data.galagaHigh != null)
+			this.galagaHigh = data.galagaHigh;
+		else
+			this.galagaHigh = "No High Score";
 
 
 		// Don't need this for now
@@ -103,6 +121,7 @@ class account {
 		this.loginKey = random(0,1000);
 	}
 }
+
 const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 let currentConnections = new Map();
 io.sockets.on('connection', socket => {
