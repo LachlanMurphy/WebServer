@@ -33,7 +33,11 @@
 
 	if (key !== null) {
 		socket.emit('getKeyMatch', key);
-	}
+	} else if (localStorage.getItem('user') != null) {
+        socket.emit('getUserData', localStorage.getItem('user'));
+    } else {
+        window.location.href = 'https://account.lachlangmurphy.com/signin/'
+    }
 
 	let user;
 	socket.on('keyMatch', act => {
