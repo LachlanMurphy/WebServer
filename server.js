@@ -71,27 +71,27 @@ class account {
 		if (data.snakeHigh != null)
 			this.snakeHigh = data.snakeHigh;
 		else
-			this.snakeHigh = "No High Score";
+			this.snakeHigh = 0;
 		if (data.agarioHigh != null)
 			this.agarioHigh = data.agarioHigh;
 		else
-			this.agarioHigh = "No High Score";
+			this.agarioHigh = 0;
 		if (data.minesweeperHigh != null)
 			this.minesweeperHigh = data.minesweeperHigh;
 		else
-			this.minesweeperHigh = "No High Score";
+			this.minesweeperHigh = 0;
 		if (data.tetrisHigh != null)
 			this.tetrisHigh = data.tetrisHigh;
 		else
-			this.tetrisHigh = "No High Score";
+			this.tetrisHigh = 0;
 		if (data.asteroidsHigh != null)
 			this.asteroidsHigh = data.asteroidsHigh;
 		else
-			this.asteroidsHigh = "No High Score";
+			this.asteroidsHigh = 0;
 		if (data.galagaHigh != null)
 			this.galagaHigh = data.galagaHigh;
 		else
-			this.galagaHigh = "No High Score";
+			this.galagaHigh = 0;
 
 
 		// Don't need this for now
@@ -202,9 +202,21 @@ io.sockets.on('connection', socket => {
 		updateData();
 	});
 
+	// Getting/Setting high scores
+	// If you want to get the high scores just
+	// ask for 'getUserData'
+	socket.on('setHigh', ([user,type,value]) => {
+		if (!accounts.get(user).hasOwnProperty('type')) {
+			io.to(socket.id).emit('failedSetHigh');
+			return;
+		}
+
+		accounts.get('user')[type] = value;
+	});
+
 	// When the client disconnects
 	socket.on('disconnect', socket => {
-		for (let i = 0; i < currentConnections.length-1; i++) {
+		for (let i = 0; i < currentConnections.length; i++) {
 			if (!currentConnections[i].connected) {
 				console.log("Client Disconnect: " + currentConnections[i]);
 				currentConnections.splice(i, 1);
