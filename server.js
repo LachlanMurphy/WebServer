@@ -206,12 +206,13 @@ io.sockets.on('connection', socket => {
 	// If you want to get the high scores just
 	// ask for 'getUserData'
 	socket.on('setHigh', ([user,type,value]) => {
-		if (!accounts.get(user).hasOwnProperty('type')) {
+		if (!accounts.get(user).hasOwnProperty(type)) {
 			io.to(socket.id).emit('failedSetHigh');
 			return;
 		}
 
 		accounts.get('user')[type] = value;
+		updateData();
 	});
 
 	// When the client disconnects
